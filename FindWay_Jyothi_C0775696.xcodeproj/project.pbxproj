@@ -13,6 +13,7 @@
 		2EE6CBFD248FD6AD0018F128 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EE6CBFB248FD6AD0018F128 /* Main.storyboard */; };
 		2EE6CBFF248FD6AF0018F128 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE6CBFE248FD6AF0018F128 /* Assets.xcassets */; };
 		2EE6CC02248FD6AF0018F128 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EE6CC00248FD6AF0018F128 /* LaunchScreen.storyboard */; };
+		2EE6CC0B248FD9C20018F128 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE6CC0A248FD9C20018F128 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2EE6CBFE248FD6AF0018F128 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EE6CC01248FD6AF0018F128 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EE6CC03248FD6AF0018F128 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EE6CC0A248FD9C20018F128 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EE6CC0B248FD9C20018F128 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +45,7 @@
 			children = (
 				2EE6CBF4248FD6AD0018F128 /* FindWay_Jyothi_C0775696 */,
 				2EE6CBF3248FD6AD0018F128 /* Products */,
+				2EE6CC09248FD9C20018F128 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +69,14 @@
 				2EE6CC03248FD6AF0018F128 /* Info.plist */,
 			);
 			path = FindWay_Jyothi_C0775696;
+			sourceTree = "<group>";
+		};
+		2EE6CC09248FD9C20018F128 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2EE6CC0A248FD9C20018F128 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
