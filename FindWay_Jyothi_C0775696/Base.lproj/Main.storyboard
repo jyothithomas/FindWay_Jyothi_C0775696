@@ -31,12 +31,16 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="nIl-sO-8vx" id="NXj-C8-VA3"/>
+                        <outlet property="addressLabel" destination="LxM-gw-Nll" id="sYf-cN-3xe"/>
+                        <outlet property="mapView" destination="1mm-D7-c3w" id="foE-p8-t0Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-200" y="-1856"/>
+            <point key="canvasLocation" x="137.68115942028987" y="117.85714285714285"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="mappin.circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
 </document>
