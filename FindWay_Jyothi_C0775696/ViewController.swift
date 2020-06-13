@@ -31,8 +31,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // start updating the location of the user
         locatioManager.startUpdatingLocation()
         // 1- define the latitude and longitude
-        let latitude: CLLocationDegrees = 43.64
-        let longitutde: CLLocationDegrees = -79.38
+        let latitude: CLLocationDegrees = 43.642567
+        let longitutde: CLLocationDegrees = -79.387054
         displayLocation(latitude: latitude, longitude: longitutde, title: "I am here", subTitle: "Beautiful City")
         //long press gesture
         let uilpgr = UILongPressGestureRecognizer(target: self, action: #selector(addLongPressAnnotation))
@@ -67,6 +67,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         annotation.title = "My Destination"
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
+        destination = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        
     }
     //MARK: didUpdateLocation method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
