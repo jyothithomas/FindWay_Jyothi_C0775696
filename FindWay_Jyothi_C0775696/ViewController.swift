@@ -7,127 +7,101 @@
 //
 
 import UIKit
-import MapKit
-import UIKit
-import MapKit
 import CoreLocation
-
-class ViewController: UIViewController {
-
+import MapKit
+class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var addressLabel: UILabel!
-    
-    let locationManager = CLLocationManager()
-    let regionInMeters: Double = 10000
-    var previousLocation: CLLocation?
-    
+    var locatioManager = CLLocationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        checkLocationServices()
-    }
-    
-    func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-    }
-    
-    func centerViewOnUserLocation() {
-        if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-            mapView.setRegion(region, animated: true)
-        }
-    }
-    
-    func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            // setup location manager
-            setupLocationManager()
-            checkLocationAuthorization()
-        }
-        else {
-            // Show alert letting the user know they have to turn this on.
-        }
-    }
-    
-    func checkLocationAuthorization() {
-        
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
-            startTrackingUserLocation()
-        case .denied:
-            //Show alert instructing them how to turn on permissions
-            break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            //show them alert letting them know what's up
-            break
-        case .authorizedAlways:
-            break
-        @unknown default:
-            break
-        }
-    }
-    
-    func startTrackingUserLocation() {
+// Do any additional setup after loading the view.
+
         mapView.showsUserLocation = true
-        centerViewOnUserLocation()
-        locationManager.startUpdatingLocation()
-        previousLocation = getCenterLocation(for: mapView)
+        //we give the delegate of location manager to this class
+        locatioManager.delegate = self
+        //desired accuracy of the location
+        locatioManager.desiredAccuracy = kCLLocationAccuracyBest
+        //request the user for the location access
+        locatioManager.requestWhenInUseAuthorization()
+        // start updating the location of the user
+        locatioManager.startUpdatingLocation()
+        // 1- define the latitude and longitude
+        let latitude: CLLocationDegrees = 43.64
+        let longitutde: CLLocationDegrees = -79.38
+        displayLocation(latitude: latitude, longitude: longitutde, title: "I am here", subTitle: "Beautiful City")
+        //long press gesture
+        let uilpgr = UILongPressGestureRecognizer(target: self, action: #selector(addLongPressAnnotation))
+        mapView.addGestureRecognizer(uilpgr)
+//        //double tap gesture
+
+//        let uidtgr = UITapGestureRecognizer(target: self, action: addDoubleTap())
+        addDoubleTap()
+
     }
-    
-    func getCenterLocation(for mapView: MKMapView) -> CLLocation {
-        let latitude = mapView.centerCoordinate.latitude
-        let longitude = mapView.centerCoordinate.longitude
-        
-        return CLLocation(latitude: latitude, longitude: longitude)
+    //MARK: add long press gesture recognizer for the annotation
+    @objc func addLongPressAnnotation(gestureRecognizer: UIGestureRecognizer) {
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        //add annotation
+        let annotation = MKPointAnnotation()
+        annotation.title = "My Destination"
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+    }
+    func addDoubleTap() {
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(dropPin))
+        doubleTap.numberOfTapsRequired = 2
+        mapView.addGestureRecognizer(doubleTap)
+    }
+    @objc func dropPin(sender: UITapGestureRecognizer){
+        removePin()
+        let touchPoint = sender.location(in: mapView)
+        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        //add annotation
+        let annotation = MKPointAnnotation()
+        annotation.title = "My Destination"
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+    }
+    //MARK: didUpdateLocation method
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation = locations[0]
+        let latitude = userLocation.coordinate.latitude
+        let longitude = userLocation.coordinate.longitude
+        displayLocation(latitude: latitude, longitude: longitude, title: "Your Location", subTitle: "You are here")
+    }
+    //MARK: display user location method
+
+    func displayLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, title: String, subTitle: String) {
+        let latDelta: CLLocationDegrees = 0.05
+        let lngDelta: CLLocationDegrees = 0.05
+        let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lngDelta)
+        let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        // set region for the map
+        let region = MKCoordinateRegion(center: location, span: span)
+        mapView.setRegion(region, animated: true)
+        //add annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location
+        annotation.title = "Toronto Downtown"
+        annotation.subtitle = "Beautiful City"
+        mapView.addAnnotation(annotation)
+
+    }
+    func removePin()
+    {
+        for annotation in mapView.annotations {
+            mapView.removeAnnotation(annotation)
+        }
     }
 }
-
-extension ViewController: CLLocationManagerDelegate
-{
-
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        checkLocationAuthorization()
-    }
-}
-
 extension ViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        
-        let center = getCenterLocation(for: mapView)
-        
-        let geoCoder = CLGeocoder()
-        
-        guard let previousLocation = self.previousLocation else { return }
-        
-        guard center.distance(from: previousLocation) > 50 else { return }
-        self.previousLocation = center
-        
-        geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
-        guard let self = self else { return }
-        
-        if let _ = error {
-            //TODO: Show alert informing the user
-            return
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
         }
-        
-        guard let placemark = placemarks?.first else {
-            //TODO: Show alert informing the user
-            return
-        }
-        
-        let streetNumber = placemark.subThoroughfare ?? ""
-        let streetName = placemark.thoroughfare ?? ""
-        
-        DispatchQueue.main.async {
-            self.addressLabel.text = "\(streetNumber) \(streetName)"
-        }
-            
-        }
-        
+        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
+        pinAnnotation.animatesDrop = true
+        return pinAnnotation
     }
 }

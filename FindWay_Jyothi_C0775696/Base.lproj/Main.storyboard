@@ -15,52 +15,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nIl-sO-8vx">
-                                <rect key="frame" x="41" y="85" width="332" height="541"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="541" id="tml-fe-y1A"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="UMx-5X-L8V"/>
-                                </connections>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRy-g6-OEE">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edf-2C-twk">
-                                <rect key="frame" x="175.5" y="653" width="63" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mappin" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="tiy-Wl-kjK">
-                                <rect key="frame" x="177" y="429.5" width="60" height="57"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="57" id="S6c-Ev-p7t"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="nIl-sO-8vx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="41" id="4Hc-Ab-jDo"/>
-                            <constraint firstItem="nIl-sO-8vx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="41" id="KNM-VC-Uqq"/>
-                            <constraint firstItem="tiy-Wl-kjK" firstAttribute="centerX" secondItem="edf-2C-twk" secondAttribute="centerX" id="Mai-Gi-Vmh"/>
-                            <constraint firstItem="tiy-Wl-kjK" firstAttribute="centerX" secondItem="nIl-sO-8vx" secondAttribute="centerX" id="QIA-IY-qKR"/>
-                            <constraint firstItem="tiy-Wl-kjK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="177" id="o0i-LB-dXM"/>
-                            <constraint firstItem="tiy-Wl-kjK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="toW-CA-kAu"/>
-                            <constraint firstItem="edf-2C-twk" firstAttribute="top" secondItem="nIl-sO-8vx" secondAttribute="bottom" constant="27" id="u3e-LZ-60Y"/>
-                            <constraint firstItem="tiy-Wl-kjK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="386" id="zgJ-Uo-zms"/>
+                            <constraint firstItem="HRy-g6-OEE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9U1-Tr-ncE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HRy-g6-OEE" secondAttribute="bottom" id="CU2-CH-jPE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HRy-g6-OEE" secondAttribute="trailing" id="adS-br-45F"/>
+                            <constraint firstItem="HRy-g6-OEE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ttX-2W-uE4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="addressLabel" destination="edf-2C-twk" id="c5G-qi-HxJ"/>
-                        <outlet property="mapView" destination="nIl-sO-8vx" id="acj-TE-w1J"/>
+                        <outlet property="mapView" destination="HRy-g6-OEE" id="54o-JS-Lci"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="117.85714285714285"/>
+            <point key="canvasLocation" x="299" y="-19"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="mappin" catalog="system" width="105" height="128"/>
-    </resources>
 </document>
