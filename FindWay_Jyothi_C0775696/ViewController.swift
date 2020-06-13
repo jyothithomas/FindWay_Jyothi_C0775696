@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import CoreLocation
 import MapKit
+
 class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var btnGo: UIButton!
     @IBOutlet weak var mapView: MKMapView!
@@ -32,8 +32,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locatioManager.startUpdatingLocation()
         // 1- define the latitude and longitude
         let latitude: CLLocationDegrees = 43.642567
-        let longitutde: CLLocationDegrees = -79.387054
-        displayLocation(latitude: latitude, longitude: longitutde, title: "I am here", subTitle: "Beautiful City")
+        let longitude: CLLocationDegrees = -79.387054
+        displayLocation(latitude: latitude, longitude: longitude, title: "I am here", subTitle: "Beautiful City")
         //long press gesture
         let uilpgr = UILongPressGestureRecognizer(target: self, action: #selector(addLongPressAnnotation))
         mapView.addGestureRecognizer(uilpgr)
@@ -41,6 +41,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
 //        let uidtgr = UITapGestureRecognizer(target: self, action: addDoubleTap())
         addDoubleTap()
+        setRegion()
 
     }
     //MARK: add long press gesture recognizer for the annotation
@@ -70,7 +71,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         destination = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
     }
-    //MARK: didUpdateLocation method
+     func setRegion() {
+           // define latitude and longitude for CN Tower toronto
+           let latitude: CLLocationDegrees = 43.642567
+           let longitude: CLLocationDegrees = -79.387054
+           let latDelta: CLLocationDegrees = 0.5
+           let longDelta: CLLocationDegrees = 0.5
+           let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+           let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+           let region = MKCoordinateRegion(center: location, span: span)
+           mapView.setRegion(region, animated: true)
+            mapView.delegate = self
+
+       }    //MARK: didUpdateLocation method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation = locations[0]
         let latitude = userLocation.coordinate.latitude
@@ -102,30 +115,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    @IBAction func btnClickgo(_ sender: Any) {
-         let overlays = mapView.overlays
-               mapView.removeOverlays(overlays)
-               
-               // draw route
-               let request = MKDirections.Request()
-               request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
-               request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
-               request.requestsAlternateRoutes = true
-               if(travelMode == "D"){
-                   request.transportType = .automobile
-               }
-               else{
-                   
-                   request.transportType = .walking
-               }
-               
-               let directions = MKDirections(request: request)
-               directions.calculate { [unowned self] response, error in
-                   guard let unwrappedResponse = response else { return }
-                   let route = unwrappedResponse.routes[0]
-                   self.mapView.addOverlay(route.polyline)
-                   self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
-                   }    }
+    @IBAction func btnClickgo(_ sender: UIButton) {
+          let overlays = mapView.overlays
+                mapView.removeOverlays(overlays)
+                
+                // draw route
+                let request = MKDirections.Request()
+                request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
+                request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
+                request.requestsAlternateRoutes = true
+                if(travelMode == "D"){
+                    request.transportType = .automobile
+                }
+                else{
+                    
+                    request.transportType = .walking
+                }
+                
+                let directions = MKDirections(request: request)
+                directions.calculate { [unowned self] response, error in
+                    guard let unwrappedResponse = response else { return }
+                    let route = unwrappedResponse.routes[0]
+                    self.mapView.addOverlay(route.polyline)
+                    self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                    }
+    }
     @IBAction func travelModeSegment(_ sender: UISegmentedControl) {
         let overlays = mapView.overlays
         mapView.removeOverlays(overlays)
@@ -158,7 +172,7 @@ func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayR
         return renderer
     } else if overlay is MKPolyline {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.blue
+        renderer.strokeColor = UIColor.green
         renderer.lineWidth = 3.0
         return renderer
     } else if overlay is MKPolygon {
