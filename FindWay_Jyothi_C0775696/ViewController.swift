@@ -10,8 +10,13 @@ import UIKit
 import CoreLocation
 import MapKit
 class ViewController: UIViewController, CLLocationManagerDelegate {
+    @IBOutlet weak var btnGo: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     var locatioManager = CLLocationManager()
+    var source = CLLocationCoordinate2D()
+    var destination = CLLocationCoordinate2D()
+    var travelMode: String = "Drive"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 // Do any additional setup after loading the view.
@@ -94,6 +99,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             mapView.removeAnnotation(annotation)
         }
     }
+    
+    @IBAction func btnClickgo(_ sender: Any) {
+         let overlays = mapView.overlays
+               mapView.removeOverlays(overlays)
+               
+               // draw route
+               let request = MKDirections.Request()
+               request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
+               request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination, addressDictionary: nil))
+               request.requestsAlternateRoutes = true
+               if(travelMode == "D"){
+                   request.transportType = .automobile
+               }
+               else{
+                   
+                   request.transportType = .walking
+               }
+               
+               let directions = MKDirections(request: request)
+               directions.calculate { [unowned self] response, error in
+                   guard let unwrappedResponse = response else { return }
+                   let route = unwrappedResponse.routes[0]
+                   self.mapView.addOverlay(route.polyline)
+                   self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                   }    }
+    @IBAction func travelModeSegment(_ sender: UISegmentedControl) {
+        let overlays = mapView.overlays
+        mapView.removeOverlays(overlays)
+        
+        if sender.selectedSegmentIndex == 0 {
+            travelMode = "D"
+        }
+        else{
+            travelMode = "W"
+        }
+    }
+    
 }
 extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -104,4 +146,29 @@ extension ViewController: MKMapViewDelegate {
         pinAnnotation.animatesDrop = true
         return pinAnnotation
     }
+
+func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    if overlay is MKCircle {
+        let renderer = MKCircleRenderer(overlay: overlay)
+        renderer.fillColor = UIColor.black.withAlphaComponent(0.5)
+        renderer.strokeColor = UIColor.green
+        renderer.lineWidth = 2.0
+        return renderer
+    } else if overlay is MKPolyline {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.blue
+        renderer.lineWidth = 3.0
+        return renderer
+    } else if overlay is MKPolygon {
+        let renderer = MKPolygonRenderer(overlay: overlay)
+        renderer.fillColor = UIColor.black.withAlphaComponent(0.5)
+        renderer.strokeColor = UIColor.orange
+        renderer.lineWidth = 2.0
+        return renderer
+    }
+    
+    return MKOverlayRenderer()
+    
+}
+
 }
