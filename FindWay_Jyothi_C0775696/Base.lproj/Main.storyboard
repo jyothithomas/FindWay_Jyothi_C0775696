@@ -21,19 +21,6 @@
                                     <constraint firstAttribute="height" constant="666" id="DTY-zs-yKo"/>
                                 </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kh-Jy-d9Q">
-                                <rect key="frame" x="231" y="69" width="89" height="31"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <state key="normal" title="Go">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnClickgo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pa6-mg-htY"/>
-                                </connections>
-                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PBT-OQ-n5k">
                                 <rect key="frame" x="91" y="69" width="103" height="32"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -45,28 +32,77 @@
                                     <segment title="Walk"/>
                                 </segments>
                                 <connections>
-                                    <action selector="travelModeSegment:" destination="BYZ-38-t0r" eventType="valueChanged" id="Plh-Mi-7M7"/>
+                                    <action selector="indexChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="8Ug-ZP-Ung"/>
                                 </connections>
                             </segmentedControl>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OS5-E3-KT9">
+                                <rect key="frame" x="101" y="119" width="73" height="18.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="t5W-op-Fkt">
+                                <rect key="frame" x="377" y="57" width="33" height="30"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXR-kx-6Rx">
+                                <rect key="frame" x="328" y="69" width="62" height="30"/>
+                                <state key="normal" title="Zoomin"/>
+                                <connections>
+                                    <action selector="zoomIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wPh-Jf-jTL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeA-m4-0Ft">
+                                <rect key="frame" x="328" y="95" width="62" height="30"/>
+                                <state key="normal" title="Zoomout"/>
+                                <connections>
+                                    <action selector="zoomOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ruW-Te-s0q"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kh-Jy-d9Q">
+                                <rect key="frame" x="266" y="781" width="89" height="31"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="aAR-Ci-Ohe"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" title="Go" image="arrowtriangle.up.fill" catalog="system">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="findMyWay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Apq-2H-Xij"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="VeA-m4-0Ft" firstAttribute="trailing" secondItem="SXR-kx-6Rx" secondAttribute="trailing" id="1RF-7q-tDt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SXR-kx-6Rx" secondAttribute="trailing" constant="24" id="3gs-Ez-xfL"/>
                             <constraint firstItem="HRy-g6-OEE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="8yk-W7-kgY"/>
-                            <constraint firstItem="4kh-Jy-d9Q" firstAttribute="bottom" secondItem="PBT-OQ-n5k" secondAttribute="bottom" id="Cfr-le-Kow"/>
-                            <constraint firstItem="4kh-Jy-d9Q" firstAttribute="top" secondItem="PBT-OQ-n5k" secondAttribute="top" id="CkS-dV-PtJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HRy-g6-OEE" secondAttribute="bottom" constant="20" id="Cx3-R5-ZgU"/>
-                            <constraint firstItem="4kh-Jy-d9Q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="231" id="KU6-t9-rS4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4kh-Jy-d9Q" secondAttribute="trailing" constant="94" id="SUs-ZO-MfG"/>
+                            <constraint firstItem="VeA-m4-0Ft" firstAttribute="leading" secondItem="SXR-kx-6Rx" secondAttribute="leading" id="EGa-IU-4Yr"/>
+                            <constraint firstItem="SXR-kx-6Rx" firstAttribute="firstBaseline" secondItem="PBT-OQ-n5k" secondAttribute="baseline" id="NwN-Q2-MUI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4kh-Jy-d9Q" secondAttribute="trailing" constant="59" id="O2c-U3-Zrs"/>
+                            <constraint firstItem="t5W-op-Fkt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="POp-Mq-3RJ"/>
+                            <constraint firstItem="4kh-Jy-d9Q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="266" id="PPa-SP-aVl"/>
+                            <constraint firstItem="SXR-kx-6Rx" firstAttribute="baseline" secondItem="PBT-OQ-n5k" secondAttribute="firstBaseline" id="Vai-vE-YD5"/>
                             <constraint firstItem="PBT-OQ-n5k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="aEQ-lL-Pjy"/>
+                            <constraint firstItem="VeA-m4-0Ft" firstAttribute="top" secondItem="t5W-op-Fkt" secondAttribute="bottom" constant="8" id="aLm-hh-XgQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4kh-Jy-d9Q" secondAttribute="bottom" constant="50" id="aXS-Jd-9i2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t5W-op-Fkt" secondAttribute="trailing" constant="4" id="hnv-eS-U1V"/>
+                            <constraint firstItem="SXR-kx-6Rx" firstAttribute="leading" secondItem="PBT-OQ-n5k" secondAttribute="trailing" constant="134" id="kIJ-yh-M8z"/>
+                            <constraint firstItem="t5W-op-Fkt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="377" id="kuc-zZ-knX"/>
                             <constraint firstItem="HRy-g6-OEE" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="lqd-hC-OfN"/>
-                            <constraint firstItem="4kh-Jy-d9Q" firstAttribute="leading" secondItem="PBT-OQ-n5k" secondAttribute="trailing" constant="37" id="pZV-DQ-f08"/>
+                            <constraint firstItem="HRy-g6-OEE" firstAttribute="top" secondItem="VeA-m4-0Ft" secondAttribute="bottom" constant="51" id="owD-5x-h36"/>
                             <constraint firstItem="PBT-OQ-n5k" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rXx-uf-ndX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="btnGo" destination="4kh-Jy-d9Q" id="sU7-J7-Wfw"/>
+                        <outlet property="btnZoomin" destination="SXR-kx-6Rx" id="c60-pa-ANb"/>
+                        <outlet property="btnZoomotu" destination="VeA-m4-0Ft" id="yMt-OM-GTe"/>
                         <outlet property="mapView" destination="HRy-g6-OEE" id="54o-JS-Lci"/>
+                        <outlet property="segmentWay" destination="PBT-OQ-n5k" id="szb-rW-s4O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -74,4 +110,7 @@
             <point key="canvasLocation" x="298.55072463768118" y="-19.419642857142858"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrowtriangle.up.fill" catalog="system" width="128" height="124"/>
+    </resources>
 </document>
